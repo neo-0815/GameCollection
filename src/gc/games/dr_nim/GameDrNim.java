@@ -40,6 +40,7 @@ public class GameDrNim extends JFrame {
 				if(reply == JOptionPane.YES_OPTION) {
 					GameCollection.main(null);
 					GameCollection.gameDrNim.dispose();
+				}else {
 				}
 			}
 		});
