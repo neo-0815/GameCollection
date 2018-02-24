@@ -26,19 +26,17 @@ public class GameDrNim extends JFrame {
 	JLabel img;
 
 	public GameDrNim() {
-		GameCollection.gameHUB.dispose();
-
 		setVisible(true);
 		setSize(pWidth, pHeight);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setTitle("Dr. Nim");
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent WE) {
-				int reply = JOptionPane.showConfirmDialog(null, "Willst du wirklich das Spiel beenden und zum GameHUB zurückkehren??", "Beenden", JOptionPane.YES_NO_OPTION);
+				final int reply = JOptionPane.showConfirmDialog(null, "Willst du wirklich das Spiel beenden und zum GameHUB zurückkehren??", "Beenden", JOptionPane.YES_NO_OPTION);
 				if(reply == JOptionPane.YES_OPTION) {
-					GameCollection.main(null);
+					GameCollection.gameHUB.setVisible(true);
 					GameCollection.gameDrNim.dispose();
 				}else {
 				}
