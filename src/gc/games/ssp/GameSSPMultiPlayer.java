@@ -1,6 +1,7 @@
 package gc.games.ssp;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
@@ -71,9 +72,9 @@ public class GameSSPMultiPlayer extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent WE) {
-				int reply = JOptionPane.showConfirmDialog(null, "Willst du wirklich das Spiel beenden und zum GameHUB zurückkehren??", "Beenden", JOptionPane.YES_NO_OPTION);
+				final int reply = JOptionPane.showConfirmDialog(null, "Willst du wirklich das Spiel beenden und zum GameHUB zurückkehren??", "Beenden", JOptionPane.YES_NO_OPTION);
 				if(reply == JOptionPane.YES_OPTION) {
-					GameCollection.main(null);
+					GameCollection.gameHUB.setVisible(true);
 					GameCollection.gameSSPmp.dispose();
 				}
 			}
@@ -103,21 +104,33 @@ public class GameSSPMultiPlayer extends JFrame {
 
 		imglbl1 = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("scissors.png"))));
 		imglbl1.setBounds(pWidth / 2 - 221 / 2, pHeight - (50 + bHeight * 2 + 192), 221, 192);
+		imglbl1.setName("image");
+		imglbl1.setVisible(false);
 
 		imglbl2 = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("stone.png"))));
 		imglbl2.setBounds(pWidth / 2 - 136 / 2, pHeight - (50 + bHeight * 2 + 108), 136, 108);
+		imglbl2.setName("image");
+		imglbl2.setVisible(false);
 
 		imglbl3 = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("paper.png"))));
 		imglbl3.setBounds(pWidth / 2 - 178 / 2, pHeight - (50 + bHeight * 2 + 240), 178, 240);
+		imglbl3.setName("image");
+		imglbl3.setVisible(false);
 
 		imglblc1 = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("scissors.png"))));
 		imglblc1.setBounds(pWidth / 2 - 221 / 2, 75, 221, 192);
+		imglblc1.setName("image");
+		imglblc1.setVisible(false);
 
 		imglblc2 = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("stone.png"))));
 		imglblc2.setBounds(pWidth / 2 - 136 / 2, 75, 136, 108);
+		imglblc2.setName("image");
+		imglblc2.setVisible(false);
 
 		imglblc3 = new JLabel(new ImageIcon(Toolkit.getDefaultToolkit().getImage(getClass().getResource("paper.png"))));
 		imglblc3.setBounds(pWidth / 2 - 178 / 2, 75, 178, 240);
+		imglblc3.setName("image");
+		imglblc3.setVisible(false);
 
 		winnerlbl = new JLabel();
 		winnerlbl.setFont(font);
@@ -141,7 +154,7 @@ public class GameSSPMultiPlayer extends JFrame {
 			try {
 				panel.remove(imglbl2);
 				panel.remove(imglbl3);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			panel.add(imglbl1);
@@ -151,7 +164,7 @@ public class GameSSPMultiPlayer extends JFrame {
 			try {
 				panel.remove(imglbl1);
 				panel.remove(imglbl3);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			panel.add(imglbl2);
@@ -161,7 +174,7 @@ public class GameSSPMultiPlayer extends JFrame {
 			try {
 				panel.remove(imglbl1);
 				panel.remove(imglbl2);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			panel.add(imglbl3);
@@ -172,7 +185,7 @@ public class GameSSPMultiPlayer extends JFrame {
 				panel.remove(imglbl1);
 				panel.remove(imglbl2);
 				panel.remove(imglbl3);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			break;
@@ -190,7 +203,7 @@ public class GameSSPMultiPlayer extends JFrame {
 			try {
 				panel.remove(imglblc2);
 				panel.remove(imglblc3);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			panel.add(imglblc1);
@@ -200,7 +213,7 @@ public class GameSSPMultiPlayer extends JFrame {
 			try {
 				panel.remove(imglblc1);
 				panel.remove(imglblc3);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			panel.add(imglblc2);
@@ -210,7 +223,7 @@ public class GameSSPMultiPlayer extends JFrame {
 			try {
 				panel.remove(imglblc1);
 				panel.remove(imglblc2);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			panel.add(imglblc3);
@@ -221,7 +234,7 @@ public class GameSSPMultiPlayer extends JFrame {
 				panel.remove(imglblc1);
 				panel.remove(imglblc2);
 				panel.remove(imglblc3);
-			}catch(NullPointerException NPE) {
+			}catch(final NullPointerException NPE) {
 			}
 
 			break;
@@ -237,7 +250,7 @@ public class GameSSPMultiPlayer extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			Object source = ae.getSource();
+			final Object source = ae.getSource();
 			if(source == end && getName() == "Winner") {
 				GameCollection.main(null);
 				GameCollection.gameSSPmp.dispose();
@@ -249,10 +262,11 @@ public class GameSSPMultiPlayer extends JFrame {
 	public class HotkeyListener implements KeyListener {
 		private boolean p1 = false;
 		private boolean p2 = false;
+		private boolean shown = false;
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			int source = e.getKeyCode();
+			final int source = e.getKeyCode();
 
 			if(source == KeyEvent.VK_1 && getName() == "Spiel" && !p1) {
 				p1 = true;
@@ -288,6 +302,11 @@ public class GameSSPMultiPlayer extends JFrame {
 				p1 = false;
 				p2 = false;
 
+				for(final Component comp : panel.getComponents())
+					if(comp instanceof JLabel && comp.getName() != null) if(comp.getName().equalsIgnoreCase("image")) comp.setVisible(true);
+
+				shown = true;
+			}else if(source == KeyEvent.VK_ENTER && getName() == "Spiel" && shown) {
 				imageP1(3);
 				imageP2(3);
 
@@ -328,7 +347,7 @@ public class GameSSPMultiPlayer extends JFrame {
 					panel.add(end);
 				}
 			}else if(source == KeyEvent.VK_ENTER && getName() == "Winner") {
-				GameCollection.main(null);
+				GameCollection.gameHUB.setVisible(true);
 				GameCollection.gameSSPmp.dispose();
 				return;
 			}

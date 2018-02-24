@@ -29,8 +29,6 @@ public class GameSSPModeChoice extends JFrame {
 	JButton mp2;
 
 	public GameSSPModeChoice() {
-		GameCollection.gameHUB.dispose();
-
 		setVisible(true);
 		setSize(pWidth, pHeight);
 		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -38,11 +36,11 @@ public class GameSSPModeChoice extends JFrame {
 		setTitle("Modusauswahl");
 		setResizable(false);
 		setLayout(null);
-		setIconImage(Toolkit.getDefaultToolkit().getImage((getClass().getResource("icon.png"))));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent WE) {
-				GameCollection.main(null);
+				GameCollection.gameHUB.setVisible(true);
 				GameCollection.gameSSPmc.dispose();
 			}
 		});
@@ -92,7 +90,7 @@ public class GameSSPModeChoice extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			Object source = ae.getSource();
+			final Object source = ae.getSource();
 
 			if(source == sp) {
 				GameSSPRoundChoice.gameMode = 1;
@@ -100,9 +98,7 @@ public class GameSSPModeChoice extends JFrame {
 			}else if(source == mp1) {
 				GameSSPRoundChoice.gameMode = 2;
 				GameCollection.gameSSPrc = new GameSSPRoundChoice();
-			}else if(source == mp2) {
-				GameSSPRoundChoice.gameMode = 3;
-			}
+			}else if(source == mp2) GameSSPRoundChoice.gameMode = 3;
 		}
 	}
 
@@ -114,16 +110,15 @@ public class GameSSPModeChoice extends JFrame {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			int source = e.getKeyCode();
+			final int source = e.getKeyCode();
 
 			if(source == KeyEvent.VK_1 || source == KeyEvent.VK_NUMPAD1) {
 				GameSSPRoundChoice.gameMode = 1;
 				GameCollection.gameSSPrc = new GameSSPRoundChoice();
 			}else if(source == KeyEvent.VK_2 || source == KeyEvent.VK_NUMPAD2) {
 				GameSSPRoundChoice.gameMode = 2;
-			}else if(source == KeyEvent.VK_3 || source == KeyEvent.VK_NUMPAD3) {
-				GameSSPRoundChoice.gameMode = 3;
-			}
+				GameCollection.gameSSPrc = new GameSSPRoundChoice();
+			}else if(source == KeyEvent.VK_3 || source == KeyEvent.VK_NUMPAD3) GameSSPRoundChoice.gameMode = 3;
 		}
 
 		@Override

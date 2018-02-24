@@ -106,7 +106,9 @@ public class GameHUB extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			Object source = ae.getSource();
+			final Object source = ae.getSource();
+
+			GameCollection.gameHUB.setVisible(false);
 
 			if(source == exit) System.exit(0);
 			else if(source == ssp) GameCollection.gameSSPmc = new GameSSPModeChoice();

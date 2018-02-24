@@ -40,11 +40,11 @@ public class GameSSPRoundChoice extends JFrame {
 		setTitle("Rundenauswahl");
 		setResizable(false);
 		setLayout(null);
-		setIconImage(Toolkit.getDefaultToolkit().getImage((getClass().getResource("icon.png"))));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png")));
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent WE) {
-				GameCollection.main(null);
+				GameCollection.gameHUB.setVisible(true);
 				GameCollection.gameSSPrc.dispose();
 			}
 		});
@@ -60,13 +60,13 @@ public class GameSSPRoundChoice extends JFrame {
 
 		confirm = new JButton();
 		confirm.setText("Bestätigen");
-		confirm.setBounds(pWidth / 2 - (bWidth / 2), pHeight - (bHeight + 45), bWidth, bHeight);
+		confirm.setBounds(pWidth / 2 - bWidth / 2, pHeight - (bHeight + 45), bWidth, bHeight);
 		confirm.setLayout(null);
 		confirm.addActionListener(new ButtonListener());
 		panel.add(confirm);
 
 		input = new JTextField();
-		input.setBounds(pWidth / 2 - (200 / 2), 25, 200, bHeight);
+		input.setBounds(pWidth / 2 - 200 / 2, 25, 200, bHeight);
 		input.setLayout(null);
 		input.setSelectedTextColor(Color.MAGENTA);
 		input.setToolTipText("Anzahl der zu spielenden Runden hier eintragen. Leer lassen um unendlich lange zu spielen.");
@@ -86,25 +86,17 @@ public class GameSSPRoundChoice extends JFrame {
 
 		@Override
 		public void actionPerformed(ActionEvent ae) {
-			Object source = ae.getSource();
-			if(source == confirm) {
-				if(gameMode == 1) {
-					if(input.getText().isEmpty()) {
-						GameSSPSinglePlayer.maxRounds = Integer.MAX_VALUE;
-					}else {
-						GameSSPSinglePlayer.maxRounds = Integer.valueOf(input.getText().replaceAll("[^\\d.]", ""));
-					}
-					GameCollection.gameSSPsp = new GameSSPSinglePlayer();
-				}else if(gameMode == 2) {
-					if(input.getText().isEmpty()) {
-						GameSSPMultiPlayer.maxRounds = Integer.MAX_VALUE;
-					}else {
-						GameSSPMultiPlayer.maxRounds = Integer.valueOf(input.getText().replaceAll("[^\\d.]", ""));
-					}
-					GameCollection.gameSSPmp = new GameSSPMultiPlayer();
-				}else if(gameMode == 3) {
+			final Object source = ae.getSource();
+			if(source == confirm) if(gameMode == 1) {
+				if(input.getText().isEmpty()) GameSSPSinglePlayer.maxRounds = Integer.MAX_VALUE;
+				else GameSSPSinglePlayer.maxRounds = Integer.valueOf(input.getText().replaceAll("[^\\d.]", ""));
+				GameCollection.gameSSPsp = new GameSSPSinglePlayer();
+			}else if(gameMode == 2) {
+				if(input.getText().isEmpty()) GameSSPMultiPlayer.maxRounds = Integer.MAX_VALUE;
+				else GameSSPMultiPlayer.maxRounds = Integer.valueOf(input.getText().replaceAll("[^\\d.]", ""));
+				GameCollection.gameSSPmp = new GameSSPMultiPlayer();
+			}else if(gameMode == 3) {
 
-				}
 			}
 		}
 	}
@@ -117,21 +109,16 @@ public class GameSSPRoundChoice extends JFrame {
 
 		@Override
 		public void keyPressed(KeyEvent e) {
-			int source = e.getKeyCode();
+			final int source = e.getKeyCode();
 
-			if(source == KeyEvent.VK_ENTER) {
-				if(gameMode == 1) {
-					if(input.getText().isEmpty()) {
-						GameSSPSinglePlayer.maxRounds = Integer.MAX_VALUE;
-					}else {
-						GameSSPSinglePlayer.maxRounds = Integer.valueOf(input.getText().replaceAll("[^\\d.]", ""));
-					}
-					GameCollection.gameSSPsp = new GameSSPSinglePlayer();
-				}else if(gameMode == 2) {
+			if(source == KeyEvent.VK_ENTER) if(gameMode == 1) {
+				if(input.getText().isEmpty()) GameSSPSinglePlayer.maxRounds = Integer.MAX_VALUE;
+				else GameSSPSinglePlayer.maxRounds = Integer.valueOf(input.getText().replaceAll("[^\\d.]", ""));
+				GameCollection.gameSSPsp = new GameSSPSinglePlayer();
+			}else if(gameMode == 2) {
 
-				}else if(gameMode == 3) {
+			}else if(gameMode == 3) {
 
-				}
 			}
 		}
 
